@@ -11,9 +11,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="progress-container">
+        <div id="progress-bar" class="progress-bar"></div>
+    </div>
     <div class="container">
         <header>
-            <h1 id="app-title">Today</h1>
+            <div class="header-top">
+                <h1 id="app-title">Today</h1>
+                <button id="theme-toggle" class="icon-btn" aria-label="Toggle dark mode">
+                    <svg class="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3V5M12 19V21M5 12H3M21 12H19M18.364 5.63604L16.95 7.05025M7.05025 16.95L5.63604 18.364M18.364 18.364L16.95 16.9503M7.05025 7.05025L5.63604 5.63604M12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <svg class="moon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+            </div>
             <p id="app-date" class="date-display"></p>
         </header>
 
@@ -26,13 +35,23 @@
             </button>
         </form>
 
+        <div id="empty-state" class="empty-state">
+            <div class="empty-icon">✨</div>
+            <p>All clear! Add a task to get started.</p>
+        </div>
+
         <ul id="todo-list" class="todo-list">
             <!-- Todos will appear here -->
         </ul>
 
         <div class="stats">
             <span id="items-left">0 items left</span>
-            <button id="clear-completed" class="btn-text">Clear Completed</button>
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="active">Active</button>
+                <button class="filter-btn" data-filter="completed">Done</button>
+            </div>
+            <button id="clear-completed" class="btn-text">Clear</button>
         </div>
     </div>
     <script src="script.js"></script>

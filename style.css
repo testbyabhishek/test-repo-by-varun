@@ -4,16 +4,32 @@
     --text-secondary: #64748b;
     --accent-color: #3b82f6;
     --accent-hover: #2563eb;
-    --card-bg: rgba(255, 255, 255, 0.8);
+    --card-bg: rgba(255, 255, 255, 0.85);
     --border-color: #e2e8f0;
     --success-color: #10b981;
     --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    --progress-bg: #e2e8f0;
+    --input-bg: #ffffff;
+}
+
+[data-theme="dark"] {
+    --bg-color: #0f172a;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --accent-color: #60a5fa;
+    --accent-hover: #3b82f6;
+    --card-bg: rgba(30, 41, 59, 0.85);
+    --border-color: #334155;
+    --progress-bg: #1e293b;
+    --input-bg: #1e293b;
+    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 body {
@@ -25,20 +41,73 @@ body {
     color: var(--text-primary);
     min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     padding: 40px 20px;
+}
+
+.progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--progress-bg);
+    z-index: 1000;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent-color), var(--success-color));
+    transition: width 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
 }
 
 .container {
     width: 100%;
-    max-width: 480px;
+    max-width: 500px;
     background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    border: 1px solid white;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
     padding: 40px;
-    border-radius: 24px;
+    border-radius: 28px;
     box-shadow: var(--shadow);
     height: fit-content;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    display: flex;
+}
+
+.icon-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .icon-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.icon-btn .sun, [data-theme="dark"] .icon-btn .moon {
+    display: none;
+}
+
+[data-theme="dark"] .icon-btn .sun, .icon-btn .moon {
+    display: block;
 }
 
 header {
@@ -62,15 +131,15 @@ h1 {
     display: flex;
     gap: 12px;
     margin-bottom: 32px;
-    position: relative;
 }
 
 #todo-input {
     flex: 1;
-    background: white;
+    background: var(--input-bg);
     border: 1px solid var(--border-color);
+    color: var(--text-primary);
     padding: 14px 20px;
-    border-radius: 12px;
+    border-radius: 14px;
     font-family: inherit;
     font-size: 15px;
     transition: all 0.2s ease;
@@ -84,11 +153,11 @@ h1 {
 
 #add-btn {
     background: var(--text-primary);
-    color: white;
+    color: var(--bg-color);
     border: none;
     width: 48px;
     height: 48px;
-    border-radius: 12px;
+    border-radius: 14px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -98,7 +167,23 @@ h1 {
 
 #add-btn:hover {
     transform: translateY(-2px);
-    background: #000;
+    filter: brightness(1.2);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 0;
+    display: none;
+}
+
+.empty-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+
+.empty-state p {
+    color: var(--text-secondary);
+    font-size: 14px;
 }
 
 .todo-list {
@@ -109,8 +194,8 @@ h1 {
 .todo-item {
     display: flex;
     align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(0,0,0,0.03);
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-color);
     animation: slideIn 0.3s ease-out;
 }
 
@@ -129,10 +214,10 @@ h1 {
 }
 
 .checkbox {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     border: 2px solid var(--border-color);
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
     display: flex;
@@ -149,6 +234,7 @@ h1 {
     content: '✓';
     color: white;
     font-size: 14px;
+    font-weight: bold;
 }
 
 .todo-text {
@@ -156,6 +242,7 @@ h1 {
     font-size: 15px;
     color: var(--text-primary);
     transition: all 0.2s ease;
+    padding: 4px 0;
 }
 
 .todo-item.completed .todo-text {
@@ -170,7 +257,7 @@ h1 {
     color: #ef4444;
     cursor: pointer;
     padding: 8px;
-    border-radius: 8px;
+    border-radius: 10px;
     transition: all 0.2s ease;
 }
 
@@ -179,7 +266,7 @@ h1 {
 }
 
 .delete-btn:hover {
-    background: #fee2e2;
+    background: rgba(239, 68, 68, 0.1);
 }
 
 .stats {
@@ -190,6 +277,38 @@ h1 {
     border-top: 1px solid var(--border-color);
     color: var(--text-secondary);
     font-size: 13px;
+}
+
+.filters {
+    display: flex;
+    gap: 8px;
+}
+
+.filter-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+    color: var(--text-primary);
+    background: rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="dark"] .filter-btn:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.filter-btn.active {
+    color: var(--accent-color);
+    background: rgba(59, 130, 246, 0.1);
 }
 
 .btn-text {
@@ -206,7 +325,22 @@ h1 {
     color: var(--text-primary);
 }
 
-@media (max-width: 480px) {
+.todo-edit-input {
+    flex: 1;
+    background: transparent;
+    border: 1px solid var(--accent-color);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 15px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    outline: none;
+}
+
+@media (max-width: 500px) {
+    body {
+        padding: 0;
+    }
     .container {
         padding: 24px;
         border-radius: 0;
