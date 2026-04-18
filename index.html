@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Todo</title>
+    <meta name="description" content="A clean, minimalist todo application built with pure HTML, CSS, and Javascript.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="app-title">Today</h1>
+            <p id="app-date" class="date-display"></p>
+        </header>
+
+        <form id="todo-form" class="todo-input-container">
+            <input type="text" id="todo-input" placeholder="What needs to be done?" autocomplete="off" required>
+            <button type="submit" id="add-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </form>
+
+        <ul id="todo-list" class="todo-list">
+            <!-- Todos will appear here -->
+        </ul>
+
+        <div class="stats">
+            <span id="items-left">0 items left</span>
+            <button id="clear-completed" class="btn-text">Clear Completed</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
