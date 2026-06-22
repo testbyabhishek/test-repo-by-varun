@@ -1,16 +1,14 @@
 name: CI
-
-on: [push]
-
+on:
+  push:
+  pull_request:
 jobs:
   traceability:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-
-      - name: Requirement Traceability
+      - name: Traceability Echo
         run: |
-          echo "QRA-DI-014 Password Timeout Requirement (#22)"
-          echo "QRA-DI-015 Password Validation Enhancement (#23)"
-          echo "Implemented by PR #24"
+          echo 'Traceability test workflow'
+          echo 'Issue #25: Traceability mapping test'
+          echo 'PR #26: Traceability mapping test'
