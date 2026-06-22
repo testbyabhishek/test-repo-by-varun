@@ -1,9 +1,16 @@
 name: CI
+
 on: [push]
+
 jobs:
-  build:
+  traceability:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
-      - name: Echo
-        run: echo 'Workflow running'
+
+      - name: Requirement Traceability
+        run: |
+          echo "QRA-DI-014 Password Timeout Requirement (#22)"
+          echo "QRA-DI-015 Password Validation Enhancement (#23)"
+          echo "Implemented by PR #24"
